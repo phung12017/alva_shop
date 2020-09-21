@@ -37,7 +37,7 @@ function MyStack() {
     </Stack.Navigator>
   );
 }
- 
+
 
 //
 function MyTabs() {
