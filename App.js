@@ -8,11 +8,12 @@
 
 
 import React from 'react';
+import 'react-native-gesture-handler';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 //Icon
 import Icon from 'react-native-vector-icons/Feather';
@@ -23,40 +24,50 @@ import Profile from './src/screens/Profile';
 import Home from './src/screens/Home';
 import Shop from './src/screens/Shop';
 import Cart from './src/screens/Cart';
+import Product from './src/screens/Product';
 
 //Create Navigator
 const Stack = createStackNavigator();
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 //My Stack
-function MyStack() {
+function HomeStack({navigation,route}) {
+
+  if(route.state && route.state.index >0){
+     navigation.setOptions({tabBarVisible:false})
+  }else{
+    navigation.setOptions({tabBarVisible:true})
+  }
+
+ 
   return (
     <Stack.Navigator headerMode="none"> 
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Product" component={Product}  />
     </Stack.Navigator>
   );
 }
 
 
+
+
 //
+
+const options = {
+  activeTintColor: '#222',
+  showLabel:false,
+  backBehavior:false,
+  initialRouteName:"Home",
+
+}
+
 function MyTabs() {
   return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      barStyle={{backgroundColor:"#fff",
-     }}
-      tabBarOptions={{
-        activeTintColor: '#e91e63',
-        
-      }}
-    >
+    <Tab.Navigator tabBarOptions={options}>
       <Tab.Screen
         name="Home"
-        component={Home}
-        
+        component={HomeStack}
         options={{
-          tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
             <Icon name="home" color={color} size={24} />
           ),
@@ -67,7 +78,7 @@ function MyTabs() {
         name="Shop"
         component={Shop}
         options={{
-          tabBarLabel: '',
+       
           tabBarIcon: ({ color, size }) => (
             <Icon name="search" color={color} size={24} />
           ),
@@ -78,18 +89,18 @@ function MyTabs() {
          name="Cart"
         component={Cart}
         options={{
-          tabBarLabel: 'Updates',
+        
           tabBarIcon: ({ color, size }) => (
-            <Icon name="bell" color={color} size={24} />
+            <Icon name="shopping-bag" color={color} size={24} />
           ),
-          tabBarBadge: null,
+      
         }}
       />
         <Tab.Screen
         name="Me"
         component={Profile}
         options={{
-          tabBarLabel: '',
+      
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={24} />
           ),
@@ -101,7 +112,7 @@ function MyTabs() {
 }
 
 const App = () => {
-Profile
+ 
   return (
    <NavigationContainer>
      <MyTabs/>

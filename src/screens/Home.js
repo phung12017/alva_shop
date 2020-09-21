@@ -10,6 +10,7 @@ import Categories from "../components/Categories";
 import BestSeller from '../components/BestSeller';
 import NewArrival from '../components/NewArrival';
 import Blogs from '../components/Blogs';
+import BadgeIcon from '../components/BadgeIcon';
 
 
 
@@ -27,11 +28,8 @@ const Home = () => {
           <Text subTitle light>Shop</Text>
         </GroupItem>
 
-
-        <View style={{ position: "relative" }}>
-          <Icon name="shopping-bag" size={24} />
-          <View style={{ position: "absolute", bottom: 0, left: 0, width: 8, height: 8, borderRadius: 8, backgroundColor: "#e74c3c" }}></View>
-        </View>
+      <BadgeIcon/>
+        
       </GroupItem>
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -72,8 +70,7 @@ const styles = StyleSheet.create({
   midBanner: {
     marginHorizontal: 16,
     height: width/2+20,
-    backgroundColor: "#ccc",
-    borderRadius: 8,
+     borderRadius: 8,
     overflow:"hidden",
     marginVertical:24,
     justifyContent:"center",
