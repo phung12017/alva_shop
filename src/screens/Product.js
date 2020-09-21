@@ -208,6 +208,7 @@ const Product = ({ route, navigation }) => {
                 <Text large medium>{title}</Text>
                 <BadgeIcon />
             </View>
+            
         </View>
     )
 }
