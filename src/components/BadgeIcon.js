@@ -14,8 +14,7 @@ const BadgeIcon = () => {
         const onValueChange = database()
             .ref(`/carts/phung12018`)
             .on('value', snapshot => {
-                console.log('User data: ', snapshot.numChildren());
-                setNumChildren(snapshot.numChildren())    
+                 setNumChildren(snapshot.numChildren())    
             });
 
         // Stop listening for updates when no longer required

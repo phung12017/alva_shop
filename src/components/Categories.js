@@ -1,71 +1,49 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import {  StyleSheet,   View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Text from "../components/Text";
 import styled from 'styled-components'
 import GroupItem from '../components/GroupItem'
 import database from '@react-native-firebase/database'
-import { ActivityIndicator } from 'react-native-paper';
-import {TouchableOpacity,FlatList} from 'react-native-gesture-handler'
- 
-
-
+import { TouchableOpacity, FlatList } from 'react-native-gesture-handler'
 
 const Categories = () => {
-
     const navigation = useNavigation()
-
-    const [isLoading, setLoading] = useState(false)
-    const [data, setData] = useState()
+    const [data, setData] = useState([])
 
     useEffect(() => {
-        getCategories()
-    }, []);
-
-
-
-
-
-    const getProductByCate = (item) => {
-      
-        navigation.navigate("Product",{item:item})
-    }
-
-
-
-    function getCategories() {
-        setLoading(true)
-        let items = []
         const onValueChange = database()
             .ref(`/categories`)
             .on('value', snapshot => {
-                //console.log('User data: ', snapshot.val());
-               
+                let list = []
                 snapshot.forEach(e => {
+                    list.push({
+                        id: e.key,
+                        ...e.val()
+                    })
+                })
 
-                    let item = {
-                        id:e.key,
-                        title:e.child('title').val(),
-                        imageUrl:e.child('imageUrl').val()
-                    }    
-                    items.push(item)
-                    //console.log(item);
-
-                });
-                
-                setLoading(false)
-                setData(items)
+                // console.log(list);
+                setData(list)
             });
-    
 
         // Stop listening for updates when no longer required
         return () =>
             database()
                 .ref(`/categories`)
-
                 .off('value', onValueChange);
+    }, []);
 
+
+
+
+    const getProductByCate = (item) => {
+
+        navigation.navigate("Product", { item: item })
     }
+
+
+
 
 
     const renderItem = (item) => {
@@ -74,7 +52,6 @@ const Categories = () => {
             <TouchableOpacity style={styles.item} onPress={() => getProductByCate(item)}>
                 <ItemImg source={{ uri: item.imageUrl }} />
                 <ItemTitle >{item.title}</ItemTitle>
-           
             </TouchableOpacity>
         )
     }
@@ -84,16 +61,16 @@ const Categories = () => {
 
             <View marginBottom={20} >
 
-            <GroupItem row>
+                <GroupItem row>
 
-                <Text large semi>Categories</Text>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Shop')}
-                >
-                    <Text color="#A0A0A0">Show more</Text>
+                    <Text large semi>Categories</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Shop')}
+                    >
+                        <Text color="#A0A0A0">Show more</Text>
 
-                </TouchableOpacity>
-            </GroupItem>
+                    </TouchableOpacity>
+                </GroupItem>
             </View>
 
             <FlatList
@@ -104,8 +81,7 @@ const Categories = () => {
                 renderItem={({ item }) => renderItem(item)}
                 horizontal={true}
             />
-            {isLoading==true?<ActivityIndicator/>:null}
-       
+
         </Container>
 
 

@@ -25,6 +25,7 @@ import Home from './src/screens/Home';
 import Shop from './src/screens/Shop';
 import Cart from './src/screens/Cart';
 import Product from './src/screens/Product';
+import Details from './src/screens/Details';
 
 //Create Navigator
 const Stack = createStackNavigator();
@@ -33,17 +34,18 @@ const Tab = createBottomTabNavigator();
 //My Stack
 function HomeStack({navigation,route}) {
 
-  if(route.state && route.state.index >0){
-     navigation.setOptions({tabBarVisible:false})
-  }else{
-    navigation.setOptions({tabBarVisible:true})
-  }
+  // if(route.state && route.state.index >0){
+  //    navigation.setOptions({tabBarVisible:false})
+  // }else{
+  //   navigation.setOptions({tabBarVisible:true})
+  // }
 
  
   return (
     <Stack.Navigator headerMode="none"> 
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Product" component={Product}  />
+      <Stack.Screen name="Details" component={Details}  />
     </Stack.Navigator>
   );
 }

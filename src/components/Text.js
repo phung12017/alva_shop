@@ -8,6 +8,7 @@ const TextStyle = ({ ...props }) => {
 }
 
 const Text = styled.Text`    
+
     color:${props => props.color ?? "#000"}
  
     ${({ title, large, medium, small, subTitle }) => {
@@ -45,6 +46,8 @@ const Text = styled.Text`
         }
 
     }}
+
     
+
 `
 export default TextStyle

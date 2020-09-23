@@ -28,16 +28,20 @@ const Home = () => {
           <Text subTitle light>Shop</Text>
         </GroupItem>
 
-      <BadgeIcon/>
+        <BadgeIcon/>
         
       </GroupItem>
 
       <ScrollView showsVerticalScrollIndicator={false}>
+        
         <MyCarousel />
+        
         <Categories />
+        
         <BestSeller />
-        <ImageBackground source={{uri:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/4d504066241211.5b257eb6df63d.jpg"}} style={{ width: width, height: width - 160, backgroundColor: "#000", marginVertical: 24 }}>
-        </ImageBackground>
+
+        <ImageBackground source={{uri:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/4d504066241211.5b257eb6df63d.jpg"}} style={{ width: width, height: width - 160, backgroundColor: "#000", marginVertical: 24 }}></ImageBackground>
+ 
         <NewArrival />
   
         <ImageBackground source={{ uri: "https://mir-s3-cdn-cf.behance.net/project_modules/1400/c752eb102276713.5f5a6bdb67a5f.jpg" }} style={styles.midBanner} >
@@ -81,6 +85,7 @@ const styles = StyleSheet.create({
     paddingHorizontal:26,
     paddingVertical:12,
     position:"absolute",
+    zIndex:3,
     borderRadius:4
   }
 })

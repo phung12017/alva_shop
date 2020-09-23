@@ -77,7 +77,7 @@ const BestSeller = () => {
                 showsHorizontalScrollIndicator={false}
                 paddingHorizontal={8}
                 data={data}
-                keyExtractor={(item) => String(item._id)}
+                keyExtractor={(item) => String(item.id)}
                 renderItem={({ item }) => renderItem(item)}
                 horizontal={true}
             />
