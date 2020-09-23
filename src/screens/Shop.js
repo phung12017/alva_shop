@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, FlatList, Text, StyleSheet, TouchableOpacity, Image, Group, StatusBar } from 'react-native';
+import { View,  Text, StyleSheet, Image, Group, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { Fonts } from '../utils/Fonts';
+import { ScrollView, TouchableOpacity,FlatList } from 'react-native-gesture-handler';
 
 
 
@@ -69,27 +70,33 @@ const Shop = (params) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <TouchableOpacity style={styles.btnSearch}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Icon name="search" color="#000" size={24} />
-          <Text style={{ marginHorizontal: 8, color: "#a5a5a5", fontFamily: "ProductSans-Regular" }}>Search a product</Text>
-        </View>
+      <View padding={16}>
+        <TouchableOpacity style={styles.btnSearch}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Icon name="search" color="#000" size={24} />
+            <Text style={{ marginHorizontal: 8, color: "#a5a5a5", fontFamily: "ProductSans-Regular" }}>Search a product</Text>
+          </View>
 
-      </TouchableOpacity>
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.item}>
-        <Image
-          style={styles.itemImg}
-          source={require('../../assets/img/GetUpTo50pc.jpg')}
+      </View>
+
+      <ScrollView showsVerticalScrollIndicator={false} paddingHorizontal={16}>
+        <TouchableOpacity style={styles.item} >
+          <Image
+            style={styles.itemImg}
+            source={require('../../assets/img/GetUpTo50pc.jpg')}
+          />
+        </TouchableOpacity>
+        <FlatList showsHorizontalScrollIndicator={false}
+
+          data={Json}
+          keyExtractor={(item) => String(item._id)}
+          renderItem={({ item }) => renderItem(item)}
+          horizontal={false}
         />
-      </TouchableOpacity>
-      <FlatList showsHorizontalScrollIndicator={false}
+      </ScrollView>
 
-        data={Json}
-        keyExtractor={(item) => String(item._id)}
-        renderItem={({ item }) => renderItem(item)}
-        horizontal={false}
-      />
     </View>
   )
 };
@@ -99,19 +106,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 16,
+
   },
   btnSearch: {
     backgroundColor: "#f4f4f4",
     padding: 12,
     borderRadius: 8,
-    marginBottom: 32
+
   },
   item: {
     width: '100%',
-    height: 88,
+    height: 90,
     backgroundColor: "#f4f4f4",
-    borderRadius: 8,
+    borderRadius: 16,
     overflow: "hidden",
     marginBottom: 16,
     justifyContent: "center", alignContent: "center"

@@ -51,7 +51,10 @@ const NewArrival = () => {
     
     const renderItem = (item) => {
         return (
-            <TouchableOpacity style={styles.item} >
+            <TouchableOpacity style={styles.item}
+            
+                onPress={()=>navigation.navigate("Details",item)}
+            >
                 <ItemImg source={{ uri: item.imageUrl }} />
                 <ItemTitle>{item.title}</ItemTitle>
                 <Text semi medium>${item.price}</Text>

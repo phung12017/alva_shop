@@ -23,6 +23,7 @@
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-auto-height-image": "^3.2.2",
+    "react-native-flash-message": "^0.1.16",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-paper": "^4.2.0",
     "react-native-ratings": "^7.3.0",

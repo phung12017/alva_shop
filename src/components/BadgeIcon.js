@@ -7,22 +7,24 @@ import { useNavigation } from '@react-navigation/native';
 
 const BadgeIcon = () => {
     const navigation = useNavigation()
-
     const [numChildren,setNumChildren] = useState(0)
 
     useEffect(() => {
         const onValueChange = database()
-            .ref(`/carts/phung12018`)
+            .ref(`/carts/phung12017`)
             .on('value', snapshot => {
+                
                  setNumChildren(snapshot.numChildren())    
             });
 
         // Stop listening for updates when no longer required
         return () =>
             database()
-                .ref(`/users/phung12018`)
+                .ref(`/users/phung12017`)
                 .off('value', onValueChange);
     }, []);
+
+    
     return (
         <TouchableOpacity style={{ position: "relative" }}
             onPress={()=>navigation.navigate('Cart')}    

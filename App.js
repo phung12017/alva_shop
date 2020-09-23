@@ -7,7 +7,7 @@
  */
 
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
 
 //Navigation
@@ -18,6 +18,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //Icon
 import Icon from 'react-native-vector-icons/Feather';
 
+//DataBase 
+import database from '@react-native-firebase/database'
 
 //Screens
 import Profile from './src/screens/Profile';
@@ -31,14 +33,16 @@ import Details from './src/screens/Details';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
+
 //My Stack
 function HomeStack({navigation,route}) {
 
-  // if(route.state && route.state.index >0){
-  //    navigation.setOptions({tabBarVisible:false})
-  // }else{
-  //   navigation.setOptions({tabBarVisible:true})
-  // }
+  if(route.state && route.state.index >0){
+     navigation.setOptions({tabBarVisible:false})
+  }else{
+    navigation.setOptions({tabBarVisible:true})
+  }
 
  
   return (
@@ -51,6 +55,23 @@ function HomeStack({navigation,route}) {
 }
 
 
+function ShopStack({navigation,route}) {
+
+  // if(route.state && route.state.index >0){
+  //    navigation.setOptions({tabBarVisible:false})
+  // }else{
+  //   navigation.setOptions({tabBarVisible:true})
+  // }
+
+ 
+  return (
+    <Stack.Navigator headerMode="none"> 
+      <Stack.Screen name="Shop" component={Shop} />
+      <Stack.Screen name="Product" component={Product}  />
+      <Stack.Screen name="Details" component={Details}  />
+    </Stack.Navigator>
+  );
+}
 
 
 //
@@ -61,11 +82,46 @@ const options = {
   backBehavior:false,
   initialRouteName:"Home",
 
+
 }
 
 function MyTabs() {
+
+
+  const [num,setNum] = useState(10)
+
+
+  useEffect(() => {
+    const onValueChange = database()
+        .ref(`/carts/phung12017`)
+        .on('value', snapshot => {
+          let list = []
+          snapshot.forEach(e => {
+              list.push({
+                  id: e.key,
+                  ...e.val()
+              })
+          })
+          var cartTotal = list.reduce(function (prev, cur) {
+              return prev + cur.num;
+          }, 0);
+           setNum(cartTotal)
+        });
+
+    // Stop listening for updates when no longer required
+    return () =>
+        database()
+            .ref(`/users/phung12017`)
+            .off('value', onValueChange);
+}, [])
+
+  
+
   return (
-    <Tab.Navigator tabBarOptions={options}>
+    <Tab.Navigator tabBarOptions={options}
+    
+     
+    >
       <Tab.Screen
         name="Home"
         component={HomeStack}
@@ -80,10 +136,12 @@ function MyTabs() {
         name="Shop"
         component={Shop}
         options={{
-       
+           
+
           tabBarIcon: ({ color, size }) => (
             <Icon name="search" color={color} size={24} />
           ),
+         
         }}
          
       />
@@ -95,6 +153,7 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <Icon name="shopping-bag" color={color} size={24} />
           ),
+          tabBarBadge:num
       
         }}
       />

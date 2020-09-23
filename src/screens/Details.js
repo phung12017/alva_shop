@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, StatusBar,Button } from 'react-native';
 import database from '@react-native-firebase/database'
 import AutoHeightImage from 'react-native-auto-height-image';
 import Icon from 'react-native-vector-icons/Feather';
@@ -8,18 +8,21 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Text from '../components/Text'
 import styled from 'styled-components'
 import Recommend from '../components/Recommend';
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 
 const { width } = Dimensions.get('window')
 
 const Details = ({ route, navigation }) => {
 
-
-    const product = route.params
+console.log(route);
+   const product = route.params
 
     return (
+        
         <View style={styles.container}>
-            <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-
+             <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+        
             <View style={styles.topBar}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icon name="chevron-left" size={24} color="#000" />
@@ -93,8 +96,9 @@ const Details = ({ route, navigation }) => {
                 <TouchableOpacity style={styles.btnAdd} onPress={() => checkExists(product)}>
                     <Text semi color="#fff">Add to cart</Text>
                 </TouchableOpacity>
+            
+            
             </View>
-
 
         </View>
     )
@@ -107,11 +111,18 @@ function checkExists(doc)
         sn.exists()===true?updateToCart(doc):addToCart(doc)
     })
 
+    showMessage({
+        message: "Add to cart success",
+        type: "success",
+    });
+
 }
 function addToCart(doc) {
     database().ref(`/carts/phung12017/${doc.id}/`)
         .set(
-            { ...doc, num: 1 }
+            { title:doc.title, num: 1,
+                imageUrl:doc.imageUrl,price:doc.price
+            }
         )
 }
 

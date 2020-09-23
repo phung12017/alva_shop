@@ -14,8 +14,8 @@ const Recommend = (props) => {
     useEffect(() => {
         const onValueChange = database()
             .ref(`/products`)
-            .orderByChild('category').equalTo(category)
-            .limitToLast(5)           
+            .orderByChild('recommend').equalTo(0)
+                     
             .on('value', snapshot => {
                  let list = []
                 snapshot.forEach(e => {
@@ -39,7 +39,7 @@ const Recommend = (props) => {
     const renderItem = (item) => {
         return (
             <TouchableOpacity style={styles.item}
-                onPress={()=>   navigation.navigate("Details",{item:item})}
+                onPress={()=>   navigation.push("Details",item)}
             
             >
 
