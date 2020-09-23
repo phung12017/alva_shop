@@ -63,7 +63,7 @@ const Product = ({ route, navigation }) => {
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icon name="chevron-left" size={24} color="#000" />
                 </TouchableOpacity>
-                <Text   large medium>{title}</Text>
+                <Text large semi>{title}</Text>
                 <BadgeIcon />
             </View>
 

@@ -22,7 +22,7 @@ const BestSeller = () => {
         const onValueChange = database()
             .ref(`/products`)
             .orderByChild('date')
-            .limitToLast(5)
+            .limitToFirst(5)
             .on('value', snapshot => {
                 //console.log('User data: ', snapshot);
                 snapshot.forEach(element => {
@@ -51,7 +51,10 @@ const BestSeller = () => {
     
     const renderItem = (item) => {
         return (
-            <TouchableOpacity style={styles.item} >
+            <TouchableOpacity style={styles.item} 
+            onPress={()=>navigation.navigate("Details",item)}
+
+            >
                 <ItemImg source={{ uri: item.imageUrl }} />
                 <ItemTitle>{item.title}</ItemTitle>
                 <Text semi medium>${item.price}</Text>

@@ -9,16 +9,16 @@ import {
 import database from '@react-native-firebase/database'
 import { Fonts } from '../utils/Fonts';
 import Icon from 'react-native-vector-icons/Feather';
-
 import { SwipeListView } from 'react-native-swipe-list-view';
-
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 export default function Basic() {
 
+    const navigation = useNavigation()
     const [listData, setListData] = useState([])
     const [cartTotal, setCartTotal] = useState(0)
     const [priceTotal, setPriceTotal] = useState(0)
     let numberFormat = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'USD' }).format(priceTotal)
-
+    
     useEffect(() => {
         const onValueChange = database()
             .ref(`/carts/phung12017`)
@@ -126,36 +126,60 @@ export default function Basic() {
 
         </View>
     );
-
-    return (
-        <View style={styles.container}>
-            <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-
-            <View style={styles.topBar}>
-                <Text style={styles.title}>Cart</Text>
-                <Text style={styles.subTitle}>{cartTotal} item</Text>
+    
+    if(listData.length>0){
+        return (
+            <View style={styles.container}>
+                <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+    
+                <View style={styles.topBar}>
+                    <Text style={styles.title}>Cart</Text>
+                    <Text style={styles.subTitle}>{cartTotal} item</Text>
+                </View>
+    
+                <View style={styles.row}  >
+                    <Text style={styles.total}>Total</Text>
+                    <Text style={styles.totalNum}>{numberFormat}</Text>
+                </View>
+    
+                <SwipeListView
+                    data={listData}
+                    renderItem={renderItem}
+                    renderHiddenItem={renderHiddenItem}
+                    rightOpenValue={-75}
+                    keyExtractor={(item) => String(item.id)}
+                    onRowDidOpen={onRowDidOpen}
+    
+                    previewOpenValue={-40}
+                    previewOpenDelay={3000}
+    
+                    showsVerticalScrollIndicator={false}
+                />
+    
+             
+                <View style={{padding:16}}>
+                <TouchableOpacity style={styles.btnCheckout} 
+                    onPress={()=>navigation.navigate('Checkout',{
+    
+                        item:listData,
+                        totalPrice:priceTotal
+    
+                    })}
+                >
+                    <Text style={styles.textBtn}>Checkout</Text>
+                </TouchableOpacity>
+                </View>
             </View>
-
-            <View style={styles.row}  >
-                <Text style={styles.total}>Total</Text>
-                <Text style={styles.totalNum}>{numberFormat}</Text>
-            </View>
-
-            <SwipeListView
-                data={listData}
-                renderItem={renderItem}
-                renderHiddenItem={renderHiddenItem}
-                rightOpenValue={-75}
-                keyExtractor={(item) => String(item.id)}
-                onRowDidOpen={onRowDidOpen}
-
-                previewOpenValue={-40}
-                previewOpenDelay={3000}
-
-                showsVerticalScrollIndicator={false}
-            />
+        );
+    }
+    else{
+       return(
+        <View flex={1} backgroundColor="#fff" justifyContent="center" alignItems="center" >
+            <Text>No item in your cart</Text>
         </View>
-    );
+       )
+    }
+    
 }
 
 const styles = StyleSheet.create({
@@ -218,7 +242,7 @@ const styles = StyleSheet.create({
         padding: 8
     },
     title: {
-        fontSize: 16,
+        fontSize: 20,
         fontFamily: Fonts.SansMedium
     },
     subTitle: {
@@ -248,4 +272,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         marginBottom: 16
     },
+    btnCheckout: {
+        padding: 16,
+        backgroundColor: "#000",
+        alignItems:"center"
+  ,borderRadius:8  },
+    textBtn: {
+        color: "#Fff",
+        fontFamily: Fonts.SansMedium,
+        fontSize: 14,
+    }
 });

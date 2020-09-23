@@ -35,21 +35,13 @@ const Categories = () => {
     }, []);
 
 
-
-
-    const getProductByCate = (item) => {
-
-        navigation.navigate("Product", { item: item })
-    }
-
-
-
-
-
     const renderItem = (item) => {
 
         return (
-            <TouchableOpacity style={styles.item} onPress={() => getProductByCate(item)}>
+            <TouchableOpacity style={styles.item} 
+            onPress={() =>  navigation.navigate("Product", { item: item })}
+            
+            >
                 <ItemImg source={{ uri: item.imageUrl }} />
                 <ItemTitle >{item.title}</ItemTitle>
             </TouchableOpacity>
@@ -81,7 +73,7 @@ const Categories = () => {
                 renderItem={({ item }) => renderItem(item)}
                 horizontal={true}
             />
-
+    
         </Container>
 
 

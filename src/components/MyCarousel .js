@@ -10,31 +10,24 @@ import {
 } from 'react-native';
 
 const ENTRIES1 = [
-  {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  },
+  
   {
     title: 'Earlier this morning, NYC',
     subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
+    illustration: 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/9a52e4101444865.5f2165dbd2946.png',
   },
+ 
   {
     title: 'White Pocket Sunset',
     subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
+    illustration: 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/067880103833127.5f561432d60b6.jpg',
   },
   {
-    title: 'Acrocorinth, Greece',
+    title: 'Beautiful and dramatic Antelope Canyon',
     subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
+    illustration: 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/4ae161104336769.5f631efb1572e.png',
   },
-  {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
-  },
+ 
 ];
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -98,7 +91,7 @@ const styles = StyleSheet.create({
   },
   image: {
     ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+   
   },
 
 });
